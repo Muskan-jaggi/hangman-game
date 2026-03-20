@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hangman</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <canvas id="bg"></canvas>
+  <div id="aurora">
+    <div class="aurora-band a1"></div>
+    <div class="aurora-band a2"></div>
+    <div class="aurora-band a3"></div>
+  </div>
+  <div id="orbs">
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="orb o3"></div>
+    <div class="orb o4"></div>
+  </div>
+
+  <!-- ── LOGIN SCREEN ── -->
+  <div id="login-screen">
+    <div id="login-card">
+      <div class="login-skull">&#x2620;</div>
+      <h1>Hangman</h1>
+      <p class="login-sub">Enter your name to load your stats &amp; play</p>
+      <div class="login-input-wrap">
+        <input id="name-input" type="text" maxlength="24" placeholder="Your name..." autocomplete="off" spellcheck="false">
+        <button id="login-btn" onclick="doLogin()">Play &#x2192;</button>
+      </div>
+      <p id="login-error"></p>
+    </div>
+  </div>
+
+  <!-- ── GAME SCREEN ── -->
+  <div id="app" class="hidden">
+    <div id="top-bar">
+      <div id="player-badge">
+        <span id="player-avatar"></span>
+        <span id="player-name-display"></span>
+      </div>
+      <button id="change-player-btn" onclick="showLogin()">&#x21BA; Change</button>
+    </div>
+
+    <!-- Stats card -->
+    <div id="stats-card">
+      <div class="stat-item">
+        <span class="stat-val" id="s-played">0</span>
+        <span class="stat-lbl">Played</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-val" id="s-won">0</span>
+        <span class="stat-lbl">Won</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-val" id="s-streak">0</span>
+        <span class="stat-lbl">Streak</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-val" id="s-max">0</span>
+        <span class="stat-lbl">Best</span>
+      </div>
+    </div>
+
+    <h2 id="game-title">&#x2620; Hangman</h2>
+
+    <!-- SVG Gallows -->
+    <svg id="hangman-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+      <line id="p-base" class="hpart" x1="20" y1="210" x2="180" y2="210"/>
+      <line id="p-pole" class="hpart" x1="60"  y1="210" x2="60"  y2="20"/>
+      <line id="p-beam" class="hpart" x1="60"  y1="20"  x2="130" y2="20"/>
+      <line id="p-rope" class="hpart" x1="130" y1="20"  x2="130" y2="50"/>
+      <circle id="p-head" class="hpart" cx="130" cy="65" r="15"/>
+      <line id="p-body" class="hpart" x1="130" y1="80"  x2="130" y2="130"/>
+      <line id="p-larm" class="hpart" x1="130" y1="95"  x2="105" y2="115"/>
+      <line id="p-rarm" class="hpart" x1="130" y1="95"  x2="155" y2="115"/>
+      <line id="p-lleg" class="hpart" x1="130" y1="130" x2="105" y2="165"/>
+      <line id="p-rleg" class="hpart" x1="130" y1="130" x2="155" y2="165"/>
+    </svg>
+
+    <div id="wrong-count">Wrong: <span id="wc">0</span> / 6</div>
+    <div id="word-display"></div>
+    <div id="guessed-label">Guessed:</div>
+    <div id="guessed-letters"></div>
+    <div id="keyboard"></div>
+    <div id="message"></div>
+    <button id="new-game-btn" onclick="startGame()">New Game</button>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
